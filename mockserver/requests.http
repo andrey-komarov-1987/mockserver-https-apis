@@ -1,0 +1,54 @@
+###
+GET http://localhost:1080/player/stats?playerId=1235
+Accept: application/json
+
+###
+POST http://localhost:1080/callback
+
+
+###
+PUT http://localhost:1080/mockserver/verify
+Accept: application/json
+Content-Type: application/json
+
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/player/stats",
+    "queryStringParameters": {
+      "playerId": ["1234"]
+    }
+  },
+  "times": {
+    "atLeast": 1, "atMost": 1
+  }
+}
+
+###
+PUT http://localhost:1080/mockserver/expectation
+Content-Type: application/json
+
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/player/stats",
+    "queryStringParameters": {
+      "playerId": [
+        "1235"
+      ]
+    }
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": "{\"playerId\": \"1235\", \"gamesPlayed\": 57, \"averageScore\": 3200, \"topScore\": 5600}",
+    "headers": {
+      "Content-Type": ["application/json"]
+    }
+  }
+}
+
+###
+PUT http://localhost:1080/mockserver/clear
+Content-Type: application/json
+
+{ "id": "1793091b-5c00-4f84-9d4d-44d8bc247566" }

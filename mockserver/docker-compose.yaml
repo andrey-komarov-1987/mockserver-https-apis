@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mockServer:
+    image: mockserver/mockserver:latest
+    ports:
+      - "1080:1080"
+    volumes:
+      - ./initializer.json:/config/initializer.json
+      - ./callback/target:/libs
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
